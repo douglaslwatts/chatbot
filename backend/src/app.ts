@@ -30,8 +30,5 @@ server.app.use(
   }
 );
 
-(port = process.env.APP_PORT || 5555) => {
-  server.app.listen(port, () =>
-    console.log(`Backend listening on port ${port}`)
-  );
-};
+const port = process.env.APP_PORT || 5555;
+server.app.listen(port, () => console.log(`Backend listening on port ${port}`));

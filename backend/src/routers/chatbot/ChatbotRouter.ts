@@ -14,15 +14,18 @@ class ChatbotRouter {
   }
 
   private _configure() {
-    this._router.get("/", (req: Request, res: Response, next: NextFunction) => {
-      try {
-        let question = req.body.question;
-        const result = this._controller.askChatbot(question);
-        res.status(200).json(result);
-      } catch (err) {
-        next(err);
+    this._router.get(
+      "/",
+      async (req: Request, res: Response, next: NextFunction) => {
+        try {
+          let question = req.body.question;
+          const result = await this._controller.askChatbot(question);
+          res.status(200).json(result);
+        } catch (err) {
+          next(err);
+        }
       }
-    });
+    );
   }
 }
 

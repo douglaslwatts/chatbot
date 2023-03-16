@@ -31,7 +31,7 @@ class ChatbotController {
       });
 
       const answer = openAiResponse.data.choices[0].message?.content;
-      return answer;
+      return { answer: answer };
     } else {
       return "No response from empty question!";
     }

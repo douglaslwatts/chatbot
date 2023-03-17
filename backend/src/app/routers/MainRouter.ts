@@ -1,4 +1,4 @@
-import { Router } from "express";
+import Router from "express";
 import ChatbotRouter from "./chatbot/ChatbotRouter";
 
 class MainRouter {
@@ -14,7 +14,7 @@ class MainRouter {
   }
 
   private _configure() {
-    this._router.use("/chatbot", this._chatbotRouter);
+    this._router.use("/api", this._chatbotRouter);
   }
 }
 

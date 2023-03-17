@@ -14,14 +14,21 @@ class ChatbotRouter {
   }
 
   private _configure() {
-    this._router.get(
-      "/",
+    // this._controller.testQuestion();
+
+    this._router.post(
+      "/chatbot",
       async (req: Request, res: Response, next: NextFunction) => {
         try {
           let question = req.body.question;
           const result = await this._controller.askChatbot(question);
           res.status(200).json(result);
         } catch (err) {
+          //   let question =
+          //     'Please say "No question was provided. Here are some words of ' +
+          //     'wisdom:". Then, give me an ancient proverb';
+          //   const result = await this._controller.askChatbot(question);
+          //   res.status(200).json(result);
           next(err);
         }
       }

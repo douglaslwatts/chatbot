@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, urlencoded, json } from "express";
 import ErrorHandler from "./handlers/ErrorHandler";
 import dotenv from "dotenv";
 
@@ -10,8 +10,19 @@ dotenv.config({
   path: ".env",
 });
 
+const jsonParser = json();
+
+const urlEncodedOptions = {
+  extended: true,
+  type: "application/json",
+};
+
+const urlEncoded = urlencoded(urlEncodedOptions);
 const server = Server;
 const port = process.env.APP_PORT || 5555;
+
+server.app.use(jsonParser);
+server.app.use(urlEncoded);
 
 server.app.use("/", server.router);
 

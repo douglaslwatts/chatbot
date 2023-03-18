@@ -24,7 +24,6 @@ class ChatbotController {
 
   public askChatbot = async (question: string) => {
     if (question) {
-      console.log(question);
       this.training_messages.push({ role: "user", content: question });
       const openAiResponse = await this.openAi.createChatCompletion({
         model: "gpt-3.5-turbo",
@@ -32,15 +31,10 @@ class ChatbotController {
       });
 
       const answer = openAiResponse.data.choices[0].message?.content;
-      console.log(answer);
       return { answer: answer };
     } else {
       return "No response from empty question!";
     }
-  };
-
-  public testQuestion = async () => {
-    console.log(await this.askChatbot("What is the diameter of the earth?"));
   };
 }
 

@@ -4,28 +4,36 @@ import dotenv from "dotenv";
 
 import Server from "./Server";
 
-// load environment vars
-
+/* load env vars from chatbot/backend/.env */
 dotenv.config({
   path: ".env",
 });
 
+/* Use BodyParser.json() to parse the request and add the 'body' object to it */
 const jsonParser = json();
 
+/* Use extended as true to specify qs library, which has extra security and allows nested objects */
 const urlEncodedOptions = {
   extended: true,
+
+  // TODO: the below may be redundant as this is the default for BodyParser.json used above
+
   type: "application/json",
 };
 
 const urlEncoded = urlencoded(urlEncodedOptions);
 const server = Server;
-const port = process.env.APP_PORT || 5555;
+
+/* The port to listen on. Use 3050 if no env var is visible. */
+const port = process.env.APP_PORT || 3050;
 
 server.app.use(jsonParser);
 server.app.use(urlEncoded);
 
+/* Route requests to the server object's router */
 server.app.use("/", server.router);
 
+/* Have express use the error handler. TODO: add more handlers for other possible errors */
 server.app.use(
   (err: ErrorHandler, req: Request, res: Response, next: NextFunction) => {
     res.status(err.statusCode || 500).json({
@@ -36,4 +44,5 @@ server.app.use(
   }
 );
 
-server.app.listen(port, () => console.log(`Backend listening on port ${port}`));
+/* Start listening on the specified port */
+server.app.listen(port, () => console.log(`Listening on port ${port}...`));

@@ -1,8 +1,15 @@
 import { Request, Response, NextFunction, urlencoded, json } from "express";
 import ErrorHandler from "./handlers/ErrorHandler";
 import dotenv from "dotenv";
+import cors from "cors";
 
 import Server from "./Server";
+
+var corsOptions = {
+  // TODO: further configuration is likely needed here
+  origin: ["http://localhost:4200", "http://localhost:3000"],
+  optionsSuccessStatus: 200,
+};
 
 /* load env vars from chatbot/backend/.env */
 dotenv.config({
@@ -31,7 +38,7 @@ server.app.use(jsonParser);
 server.app.use(urlEncoded);
 
 /* Route requests to the server object's router */
-server.app.use("/", server.router);
+server.app.use("/", cors(corsOptions), server.router);
 
 /* Have express use the error handler. TODO: add more handlers for other possible errors */
 server.app.use(

@@ -1,0 +1,36 @@
+<main class="mainContent">
+  <section class="chat" id="chat">
+    <div class="headerClass">
+      <header class="chatterBotHeader" id="chatterBotHeader">
+        ChatterBot - An ask me anything chat bot
+      </header>
+    </div>
+    <article class="conversation" id="conversation">
+      <p
+        *ngFor="let questionAnswer of questionsAnswers"
+        class="{{ questionAnswer.class }}"
+      >
+        {{ questionAnswer.questionAnswer }}
+      </p>
+    </article>
+    <form class="formClass" [formGroup]="questions" (ngSubmit)="ask()">
+      <div
+        class="formDiv"
+        aria-label="Input area containing input and submit button"
+      >
+        <input
+          aria-label="Input field for questions"
+          type="text"
+          class="questionField"
+          name="question"
+          id="question"
+          formControlName="question"
+          placeholder="Enter a question..."
+        />
+        <button type="submit" class="askButton" aria-label="Submit Button">
+          Ask
+        </button>
+      </div>
+    </form>
+  </section>
+</main>

@@ -23,6 +23,7 @@ export class ChatterbotComponent implements OnInit {
     if (userQuestion != null && userQuestion != undefined) {
       let newQuestion = { class: 'question', questionAnswer: userQuestion };
       this.questionsAnswers.push(newQuestion);
+      document.forms[0].reset();
 
       await this.questionPostingService
         .askChatbot({
@@ -50,5 +51,16 @@ export class ChatterbotComponent implements OnInit {
         'Hi, I am ChatterBot. Do you have any questions about life and the universe?',
     };
     this.questionsAnswers.push(introP);
+
+    document.body
+      .querySelector('.conversation')
+      ?.addEventListener('DOMSubtreeModified', () => {
+        let conversation = document.body.querySelector('.conversation');
+        conversation?.scrollTo({
+          top: conversation.scrollHeight,
+          left: 0,
+          behavior: 'smooth',
+        });
+      });
   }
 }

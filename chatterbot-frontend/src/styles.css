@@ -135,4 +135,5 @@ table {
 
 html {
   background-color: rgba(0, 30, 40, 0.8);
+  overflow: hidden;
 }
